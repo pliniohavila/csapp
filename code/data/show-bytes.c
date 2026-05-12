@@ -4,11 +4,25 @@
 
 typedef     unsigned char *byte_pointer;
 
+void show_bits(unsigned char byte) {
+    for (int i = 7; i >= 0; i--) {
+        printf("%d", (byte >> i) & 1);
+    }
+}
+
 void    show_bytes(byte_pointer start, size_t len)
 {
     for (int i = 0; i< len; i++) {
         printf(" %.2x", start[i]);
     }
+
+    printf(" ");
+
+    for (int i = 0; i < len; i++) {
+        printf(" ");
+        show_bits(start[i]);
+    }
+
     printf("\n");
 }
 
@@ -45,14 +59,25 @@ void    test_bytes(int val)
     show_pointer(pval);
 }
 
+int     fun1(unsigned word) 
+{
+    return (int) ((word << 24) >> 24);
+}
+
+int     fun2(unsigned word)
+{
+    return ((int) word << 24) >> 24;
+}
+
 int     main(void)
 {
-    int     val;
+    int     x = 53191;
+    short   sx = (short) x;
+    int     y = sx;
 
-    val = 123456;
-    // test_bytes(val);
-    char    *m = "12345\0";
-    show_bytes((byte_pointer) m, strlen(m));
+    show_int(x);
+    show_int(sx);
+    show_int(y);
 
     return (0);
 }
