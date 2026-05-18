@@ -12,41 +12,53 @@ void print_binary(int n) {
 unsigned  srl(unsigned x, int k)
 {
   unsigned  xsra;
+  unsigned  mask;
+  unsigned  result;
 
   // Perform shift arithmetically
   xsra = (int) x >> k;
 
-  return (xsra);
+  // Create a mask with shift in k
+  mask = ~((unsigned int)0xFF << (W_LENGTH - k));
+  //Aplly mask to simulate shift logically
+  result = xsra & mask;
+
+  return (result);
 }
 
 int     sra(int x, int k)
 {
-  int   xsrl;
+  int       xsrl;
+  unsigned  mask;
+  unsigned  result;
 
   // Perform shift logically
   xsrl = (unsigned) x >> k;
+  // Create a mask with shift in k
+  // mask = ((unsigned int)0xFF << (W_LENGTH - k));
+  mask = x >> 31;
+  print_binary(mask);
+  //Aplly mask to simulate shift logically
+  unsigned msb = (x >> (W_LENGTH - 1)) & ((unsigned int)0xFF << (W_LENGTH - 31));
+  // print_binary(msb);
+  // result = xsrl | mask;
 
-  return (xsrl);
+  return (result);
 }
 
 
 int     main(void)
 {
-    // signed char     x = 0b00010101;
-    signed char     x = 10;
-    unsigned        r1;
+    int          x;
+    unsigned     r1;
+    int          k;
 
-    r1 = srl(10, 2);
-
-    // printf("%d - %x - ", x, x);
-    print_binary(10);
-    print_binary(r1);
-    unsigned mask = ~((unsigned int)0xFF << (W_LENGTH - 3)); // 00011111111111111111111111111111
-    print_binary(mask);
-    unsigned mask2 = ((unsigned int)0xFF << (W_LENGTH - 3)); // 11100000000000000000000000000000
-    print_binary(mask2);
-    // x = x >> 4;
-    // printf("%d - %x - ", x, x);
-    // print_binary(x);
+    // x = 0xF0000000;
+    // k = 4;
+    x = -10;
+    k = 2;
+    print_binary(x);
+    r1 = sra(x, k);
+    // print_binary(r1);
     return (0);
 }
