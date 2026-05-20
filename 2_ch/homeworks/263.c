@@ -25,13 +25,8 @@ unsigned  srl(unsigned x, int k)
   // Perform shift arithmetically
   xsra = (int) x >> k;
 
-  // Tenho o caso especial de quando k=0
-  mask = ~(ALL_ONES << (W_LENGTH - k));
-  // mask = ~k ~(ALL_ONES << (W_LENGTH - k));
-  print_binary(ALL_ONES);
-  print_binary(~k);
-  print_binary(ALL_ONES & k);
-  // print_binary(~k);
+  mask = (unsigned)-1 >> k;
+
   result = xsra & mask;
 
   return (result);
@@ -67,8 +62,8 @@ int     main(void)
     unsigned     r1;
     int          k;
 
-    x = -10;
-    k = 2;
+    x = 0x80000000;
+    k = 31;
     printf("x: ");
     print_binary(x);
     printf("k: %d\n", k);
