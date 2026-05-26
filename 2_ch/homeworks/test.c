@@ -12,11 +12,9 @@ int     main(void)
 {
     signed char     x = 0b00010101;
     // signed char     x = 149;
+    int w = sizeof(int) << 3;
 
-    printf("%d - %x - ", x, x);
-    print_binary(x);
-    x = x >> 4;
-    printf("%d - %x - ", x, x);
-    print_binary(x);
+    print_binary(-(unsigned)!0);
+    // print_binary(1);
     return (0);
 }

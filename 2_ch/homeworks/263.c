@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define W_LENGTH 8 * sizeof(int)
+#define W_LENGTH sizeof(int) << 3
 #define ALL_ONES ~((int)0x0)
 
 // 10, 2
@@ -41,18 +41,36 @@ int     sra(int x, int k)
 
   // Perform shift logically
   xsrl = (unsigned) x >> k;
-  // Create a mask with shift in k
-  pre_mask = (unsigned int)0xF << (W_LENGTH - k);
-  // print_binary(pre_mask);
-  // print_binary((unsigned int)0xF << (W_LENGTH - k));
-  // print_binary((unsigned int)0xFF << (W_LENGTH - k));
-  // Get MSB to know if field k shift with 0 or 1 and create a new mask with MSB
-  mask = (x >> (W_LENGTH - 1)) & pre_mask;
-  //Aplly mask to simulate shift arithmetically
-  // result = xsrl | mask;
-  result = xsrl | mask;
 
-  return (result);
+  // w = número de bits em int
+  int w = sizeof(int) << 3;
+  
+  /*
+  * Extrair o MSB (bit de sinal) de x.
+  * x >> (w-1): shift aritmético propaga o sinal para todos os bits.
+  * & 1: isola apenas o bit menos significativo → msb ∈ {0, 1}.
+  */
+  int msb = (x >> (w-1)) & 1;
+
+  /*
+  * Construção da máscara de correção: 1^k 0^(w-k)
+  * Mesma técnica de divisão de shift para evitar UB.
+  * Para k=0: nenhuma correção necessária → tratado via bitwise-if.
+  */
+  unsigned kmask_nonzero = (~0u << 1) << (w - k - 1);
+  
+  // Bitwise-if para k == 0: máscara de correção é 0 quando k=0
+  unsigned is_k_zero = -(unsigned)!k;
+  unsigned kmask = kmask_nonzero & ~is_k_zero;
+
+  /*
+  * Condicionar ao sinal:
+  * -(unsigned)msb = ~0u se msb=1 (x negativo), 0 se msb=0 (x positivo).
+  * correction: máscara com 1s nos k bits superiores apenas se x < 0.
+  */
+  unsigned correction = kmask & (-(unsigned)msb);
+
+  return xsrl & (int)correction;
 }
 
 
