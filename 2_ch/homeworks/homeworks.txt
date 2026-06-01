@@ -1,10 +1,10 @@
 [x] Homework 2.58
 [x] Homework 2.60
 [X] Homework 2.63
-[ ] Homework 2.66
-[ ] Homework 2.69
-[ ] Homework 2.71
-[ ] Homework 2.72
+[x] Homework 2.66
+[x] Homework 2.69
+[x] Homework 2.71 -
+[ ] Homework 2.72 - 
 [ ] Homework 2.73
 [ ] Homework 2.76
 [ ] Homework 2.80
@@ -12,9 +12,9 @@
 [ ] Homework 2.83
 [ ] Homework 2.84
 [ ] Homework 2.85
-[ ] Homework 2.87
-[ ] Homework 2.89
-[ ] Homework 2.90
+[ ] Homework 2.87 -
+[ ] Homework 2.89 - 
+[ ] Homework 2.90 -
 [ ] Homework 2.94
 [ ] Homework 2.96
 [ ] Homework 2.97

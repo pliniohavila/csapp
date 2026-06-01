@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+typedef unsigned char *word;
 
 void print_binary(int n) {
   for (int i = sizeof(n) * 8 - 1; i >= 0; i--) {
@@ -10,11 +11,14 @@ void print_binary(int n) {
 
 int     main(void)
 {
-    signed char     x = 0b00010101;
-    // signed char     x = 149;
-    int w = sizeof(int) << 3;
+    int             x;
+    unsigned char   vector;
+    
+    x = 0xFF00;
+    vector = (word) &x;
 
-    print_binary(-(unsigned)!0);
-    // print_binary(1);
+    print_binary(x);
+    print_binary(vector);
+    
     return (0);
 }
