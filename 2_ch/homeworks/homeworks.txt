@@ -4,7 +4,7 @@
 [x] Homework 2.66
 [x] Homework 2.69
 [x] Homework 2.71 -
-[ ] Homework 2.72 - 
+[x] Homework 2.72 - 
 [ ] Homework 2.73
 [ ] Homework 2.76
 [ ] Homework 2.80
