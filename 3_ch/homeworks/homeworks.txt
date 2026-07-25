@@ -1,4 +1,4 @@
-[ ] Homework 3.58
+[x] Homework 3.58
 [ ] Homework 3.61
 [ ] Homework 3.65
 [ ] Homework 3.66

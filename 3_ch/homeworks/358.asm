@@ -3,7 +3,7 @@ codes:
 
 section .text
 global _start
-; nasm -f elf64 358.asm -o prog.o
+; nasm -f elf64 -g -F dwarf 358.asm -o prog.o
 ; ld prog.o -o prog
 ; echo $? 
 decode2:
@@ -29,6 +29,8 @@ _start:
 
   ; rax contém o retorno.
   ; Usaremos esse valor como código de saída.
+
+  ; rax = 0xffffffffffffff69
 
   mov     rdi, rax
   mov     rax, 60         ; syscall: exit
