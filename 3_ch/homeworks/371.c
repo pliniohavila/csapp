@@ -2,20 +2,54 @@
 #include "stdlib.h"
 #include "string.h"
 
+// #define N 4
+
 // https://zetcode.com/clang/fgets/
+
+#include <unistd.h>
+
+int     good_echo(void)
+{
+    char    *buf;
+    char    *temp;
+    size_t  size;
+    
+    size = 10;
+    buf = malloc(sizeof(char) * size);
+    
+    if (buf != NULL) buf[0] = '\0';
+    else return 1;
+
+    while (fgets(buf + strlen(buf), size - strlen(buf), stdin) && buf[strlen(buf) - 1] != '\n') {
+
+        if (strlen(buf) + 1 == size) {
+            temp = realloc(buf, size * 2);
+            if (!temp) {
+                free(buf);
+                return (1);
+            }
+            buf = temp;
+            size *= 2;
+        }
+        
+    }
+
+    if (ferror(stdin) || feof(stdin)) {
+        free(buf);
+        return (1);
+    }
+    
+    
+    printf("%s", buf);
+
+    free(buf);
+
+    return (0);
+}
+
 int main(void)
 {
-    char str[4];
-    size_t len;
-    
-    len = 4;
-
-    // fgets(str, sizeof(str), stdin);
-    fgets(str, 3, stdin);
-
-    printf("> size: %ld - %s\n", sizeof(str), str);
-
-    // free(str);
+    good_echo();
 }
 
 // int main(void)
